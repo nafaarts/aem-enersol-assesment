@@ -1,0 +1,17 @@
+<div class="input-field">
+    <label [for]="id" *ngIf="label">{{ label }}</label>
+    <input
+        [id]="id"
+        [type]="type"
+        [placeholder]="placeholder"
+        [formControl]="control"
+        [class.is-invalid-input]="control.invalid && control.touched"
+    >
+    <ng-container *ngIf="control.touched && control.errors as errors">
+        <span class="form-error is-visible" *ngIf="errors['required']">This field is required.</span>
+        <span class="form-error is-visible" *ngIf="errors['email']">Enter a valid email address.</span>
+        <span class="form-error is-visible" *ngIf="errors['minlength']">
+            Minimum {{ errors['minlength'].requiredLength }} characters required.
+        </span>
+    </ng-container>
+</div>

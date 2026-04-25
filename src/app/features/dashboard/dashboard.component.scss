@@ -1,0 +1,6 @@
+@media (min-width: 1024px) {
+    .chart-grid > .cell {
+        display: flex;
+        flex-direction: column;
+    }
+}

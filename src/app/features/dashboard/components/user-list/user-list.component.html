@@ -1,0 +1,19 @@
+<app-table>
+
+  <thead app-thead>
+    <tr app-tr>
+      <th app-th [sortable]="true" [sortDir]="sortField === 'firstName'   ? sortDir : null" (sorted)="onSort('firstName')">First Name</th>
+      <th app-th [sortable]="true" [sortDir]="sortField === 'lastName'  ? sortDir : null" (sorted)="onSort('lastName')">Last Name</th>
+      <th app-th [sortable]="true" [sortDir]="sortField === 'username'   ? sortDir : null" (sorted)="onSort('username')">UserName</th>
+    </tr>
+  </thead>
+
+  <tbody app-tbody>
+    <tr app-tr *ngFor="let user of rows">
+      <td app-td>{{ user.firstName }}</td>
+      <td app-td>{{ user.lastName }}</td>
+      <td app-td>{{ user.username }}</td>
+    </tr>
+  </tbody>
+
+</app-table>

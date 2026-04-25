@@ -1,0 +1,20 @@
+.app-navbar {
+    background-color: #0e1111;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 0.875rem;
+
+        ul {
+            display: flex;
+            gap: 5px;
+            margin: 0;
+
+            li {
+                display: inline;
+            }
+        }
+    }
+}

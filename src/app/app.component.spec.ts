@@ -26,10 +26,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('aem-dashboard');
   });
 
-  it('should render title', () => {
+  it('should render the router outlet shell', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('aem-dashboard app is running!');
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
 });

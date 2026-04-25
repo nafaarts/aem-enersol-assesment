@@ -1,0 +1,25 @@
+<div class="chart-wrapper" [style.height.px]="height">
+  <div #chart class="chart-container"></div>
+
+  <div class="fallback-state" *ngIf="isEmpty && !hasError">
+    <div class="fallback-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="12" width="4" height="8" rx="1"/>
+        <rect x="10" y="7" width="4" height="13" rx="1"/>
+        <rect x="17" y="3" width="4" height="17" rx="1"/>
+      </svg>
+    </div>
+    <p>No data available</p>
+  </div>
+
+  <div class="fallback-state fallback-state--error" *ngIf="hasError">
+    <div class="fallback-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <p>Chart failed to load</p>
+  </div>
+</div>

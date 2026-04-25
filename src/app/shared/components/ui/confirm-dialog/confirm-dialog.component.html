@@ -1,0 +1,30 @@
+<div *ngIf="isOpen" class="dialog-backdrop" (click)="cancel()">
+    <div class="dialog-box" (click)="$event.stopPropagation()">
+
+        <!-- Icon -->
+        <div class="dialog-icon" [class]="config.type">
+            <span *ngIf="config.type === 'danger'">⚠</span>
+            <span *ngIf="config.type === 'warning'">⚡</span>
+            <span *ngIf="config.type === 'info'">ℹ</span>
+        </div>
+
+        <!-- Content -->
+        <div class="dialog-content">
+            <h5 class="dialog-title">{{ config.title }}</h5>
+            <p class="dialog-message">{{ config.message }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="dialog-actions">
+            <app-button variant="secondary" size="small" (click)="cancel()">
+                {{ config.cancelLabel }}
+            </app-button>
+            <app-button variant="alert" size="small" [class.alert]="config.type === 'danger'"
+                [class.warning]="config.type === 'warning'" [class.primary]="config.type === 'info'"
+                (click)="confirm()">
+                {{ config.confirmLabel }}
+            </app-button>
+        </div>
+
+    </div>
+</div>

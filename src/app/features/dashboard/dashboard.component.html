@@ -1,0 +1,39 @@
+<div *ngIf="hasError" class="callout alert">
+    Failed to load dashboard data. Please try again.
+</div>
+
+<section style="margin-bottom: 24px;">
+    <h5>Overview</h5>
+
+    <ng-container *ngIf="isLoading">
+        <div class="grid-x grid-margin-x chart-grid">
+            <div class="cell large-6">
+                <div class="skeleton" style="height: 400px; width: 100%;"></div>
+            </div>
+            <div class="cell large-6">
+                <div class="skeleton" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading && !hasError">
+        <div class="grid-x grid-margin-x chart-grid">
+            <div class="cell large-6">
+                <first-chart [data]="donutData"></first-chart>
+            </div>
+            <div class="cell large-6">
+                <second-chart [data]="barData"></second-chart>
+            </div>
+        </div>
+    </ng-container>
+</section>
+
+<section>
+    <h5>User List</h5>
+
+    <div *ngIf="isLoading" class="skeleton" style="height: 300px; width: 100%;"></div>
+
+    <ng-container *ngIf="!isLoading && !hasError">
+        <user-list [users]="users"></user-list>
+    </ng-container>
+</section>

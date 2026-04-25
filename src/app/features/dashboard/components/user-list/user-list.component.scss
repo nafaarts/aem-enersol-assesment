@@ -1,0 +1,11 @@
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    &--aktif    { background: #dcfce7; color: #16a34a; }
+    &--nonaktif { background: #fee2e2; color: #dc2626; }
+    &--lulus    { background: #dbeafe; color: #2563eb; }
+}

@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f1f5f9;
+    align-items: center;
+    padding: 2rem 0;
+
+    .auth-wrapper {
+        width: 100%;
+        max-width: 400px;
+    }
+}

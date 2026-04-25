@@ -28,9 +28,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/foundation-sites/dist/css/foundation.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+               "node_modules/foundation-sites/dist/js/foundation.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -96,9 +99,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/foundation-sites/dist/css/foundation.min.css",
               "src/styles.scss"
-            ],
-            "scripts": []
+            ]
           }
         }
       }

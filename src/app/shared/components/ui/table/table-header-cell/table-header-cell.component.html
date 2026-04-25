@@ -1,0 +1,8 @@
+<span class="th-inner" [class.th-sortable]="sortable" (click)="onClick()">
+  <span class="th-label"><ng-content></ng-content></span>
+  <span *ngIf="sortable" class="sort-icon" [class.active]="sortDir !== null">
+    <ng-container *ngIf="sortDir === 'asc'">&#8593;</ng-container>
+    <ng-container *ngIf="sortDir === 'desc'">&#8595;</ng-container>
+    <ng-container *ngIf="sortDir === null">&#8597;</ng-container>
+  </span>
+</span>

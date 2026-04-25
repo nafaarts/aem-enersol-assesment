@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: 1px solid #cbd5e1;
+
+    .card-divider {
+        background-color: #f1f5f9;
+        border-bottom: 1px solid #cbd5e1;
+    }
+
+    .card-section {
+        flex: 1;
+    }
+}

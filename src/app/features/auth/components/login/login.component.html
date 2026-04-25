@@ -1,0 +1,19 @@
+<app-card title="Sign In to your dashboard">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="callout alert" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+
+        <app-input label="Username / Email" placeholder="Enter your username or email"
+            [control]="usernameControl"></app-input>
+
+        <app-input-password label="Password" placeholder="Enter your password"
+            [control]="passwordControl"></app-input-password>
+
+        <app-button variant="primary" size="expanded" [disabled]="isLoading">
+            {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </app-button>
+
+    </form>
+</app-card>
