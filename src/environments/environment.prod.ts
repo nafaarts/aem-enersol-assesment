@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://test-demo.aemenersol.com/api',
+  apiUrl: 'https://lucky-mode-aac4.nafaarts-com.workers.dev/api',
 };
