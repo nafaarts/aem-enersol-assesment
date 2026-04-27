@@ -24,7 +24,7 @@ export interface BarChartData {
 })
 export class BarChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() data: BarChartData[] = [];
-  @Input() color = '#6366f1';
+  @Input() color = '#1779ba';
   @Input() height = 300;
 
   @ViewChild('chart', { static: true }) chartRef!: ElementRef;

@@ -25,7 +25,7 @@ export interface DonutChartData {
 export class DonutChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() data: DonutChartData[] = [];
   @Input() colors: string[] = [
-    '#6366f1', '#22d3ee', '#f59e0b', '#10b981', '#f43f5e', '#a78bfa',
+    '#1779ba', '#22d3ee', '#f59e0b', '#10b981', '#f43f5e', '#a78bfa',
   ];
   @Input() height = 320;
 
