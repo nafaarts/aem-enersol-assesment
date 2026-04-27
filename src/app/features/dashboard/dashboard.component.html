@@ -1,12 +1,16 @@
 <div *ngIf="hasError" class="callout alert">
-    Failed to load dashboard data. Please try again.
+    {{ errorMessage ?? 'Failed to load dashboard data. Please try again.' }}
+</div>
+
+<div *ngIf="statusMessage" class="callout warning">
+    {{ statusMessage }}
 </div>
 
 <section style="margin-bottom: 24px;">
     <h5>Overview</h5>
 
     <ng-container *ngIf="isLoading">
-        <div class="grid-x grid-margin-x chart-grid">
+        <div class="grid-x grid-margin-x grid-margin-y chart-grid">
             <div class="cell large-6">
                 <div class="skeleton" style="height: 400px; width: 100%;"></div>
             </div>
@@ -17,7 +21,7 @@
     </ng-container>
 
     <ng-container *ngIf="!isLoading && !hasError">
-        <div class="grid-x grid-margin-x chart-grid">
+        <div class="grid-x grid-margin-x grid-margin-y chart-grid">
             <div class="cell large-6">
                 <first-chart [data]="donutData"></first-chart>
             </div>

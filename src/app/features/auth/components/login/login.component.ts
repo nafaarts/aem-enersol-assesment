@@ -25,7 +25,7 @@ export class LoginComponent {
     return this.loginForm.get('password') as FormControl;
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -38,17 +38,18 @@ export class LoginComponent {
 
     const { username, password } = this.loginForm.value;
 
-    this.authService.login(username!, password!).subscribe({
-      next: () => {
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.errorMessage =
-          err.status === 401
-            ? 'Invalid username or password.'
-            : 'Something went wrong. Please try again.';
-      },
-    });
+    this.authService.login(username!, password!)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.errorMessage =
+            err.status === 401
+              ? 'Invalid username or password.'
+              : 'Something went wrong. Please try again.';
+        },
+      });
   }
 }

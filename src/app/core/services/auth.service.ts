@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { catchError, from, switchMap, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
+import hashPassword from 'src/app/shared/utils/password-hash';
+import { AuthRepository, UserDoc } from '../repositories/auth.repository';
+import { extractToken } from 'src/app/shared/utils';
 
-interface LoginPayload {
-  username: string;
-  password: string;
+const AUTH_KEY = 'authenticated_user'
+
+interface AuthData {
+  username: string
+  token: string | null
 }
 
 @Injectable({ providedIn: 'root' })
@@ -16,37 +20,82 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService,
+    private authRepo: AuthRepository,
     private router: Router,
   ) { }
 
-  login(username: string, password: string): Observable<unknown> {
-    const payload: LoginPayload = { username, password };
-    return this.http
-      .post<unknown>(`${this.baseUrl}/account/login`, payload)
-      .pipe(tap(res => this.tokenService.set(this.extractToken(res))));
+  // LOCAL STORAGE
+  private setSession(username: string, token: string | null): void {
+    const authData: AuthData = { username, token }
+    localStorage.setItem(AUTH_KEY, JSON.stringify(authData))
   }
 
-  private extractToken(res: unknown): string {
-    let raw = '';
-
-    if (typeof res === 'string') {
-      raw = res;
-    } else if (res && typeof res === 'object') {
-      const r = res as Record<string, unknown>;
-      raw = String(r['token'] ?? r['accessToken'] ?? r['access_token'] ?? '');
-    }
-
-    // Strip "Bearer " prefix if the API already includes it
-    return raw.startsWith('Bearer ') ? raw.slice(7) : raw;
+  private getSession(): AuthData | null {
+    const authData = localStorage.getItem(AUTH_KEY)
+    return authData ? JSON.parse(authData) : null
   }
 
-  logout(): void {
-    this.tokenService.clear();
-    this.router.navigate(['/auth/login']);
+  private clearSession(): void {
+    localStorage.removeItem(AUTH_KEY)
   }
 
   isAuthenticated(): boolean {
-    return this.tokenService.isAuthenticated();
+    return this.getSession() !== null
+  }
+
+  getToken(): string {
+    return this.getSession()?.token || ''
+  }
+
+  // AUTHENTICATION
+  private onlineLogin(username: string, password: string) {
+    return this.http.post(`${this.baseUrl}/account/login`, { username, password }).pipe(
+      tap(async res => {
+        const token = extractToken(res)
+
+        this.setSession(username, token)
+        await this.authRepo.saveUser(username, password, token)
+      })
+    )
+  }
+
+  private offlineLogin(username: string, password: string) {
+    return from(this.authRepo.getUser(username)).pipe(
+      switchMap(async user => {
+        if (!user) throw new Error('User not found offline')
+
+        const authenticatedUser: UserDoc = user as UserDoc
+        const hash = await hashPassword(password, environment.offlineAuthSalt)
+
+        if (hash !== authenticatedUser.passwordHash) {
+          throw new Error('Invalid credentials')
+        }
+
+        this.setSession(username, authenticatedUser.token)
+
+        return authenticatedUser
+      })
+    )
+  }
+
+  login(username: string, password: string) {
+    return this.onlineLogin(username, password).pipe(
+      catchError(err => {
+        if (err.status === 0) {
+          console.info('The user may be offline, trying to validate from pouchdb')
+          return this.offlineLogin(username, password)
+        }
+
+        return throwError(() => {
+          console.log(err)
+          return err
+        })
+      })
+    )
+  }
+
+  logout(): void {
+    this.clearSession()
+    this.router.navigate(['/auth/login'])
   }
 }

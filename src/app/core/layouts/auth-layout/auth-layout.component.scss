@@ -1,6 +1,6 @@
 :host {
     display: flex;
-    min-height: 100vh;
+    min-height: 100dvh;
     background-color: #f1f5f9;
     align-items: center;
     padding: 2rem 0;
@@ -8,5 +8,6 @@
     .auth-wrapper {
         width: 100%;
         max-width: 400px;
+        padding-inline: 20px;
     }
 }

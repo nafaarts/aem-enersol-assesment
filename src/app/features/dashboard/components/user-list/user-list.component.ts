@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { DashboardUser } from 'src/app/core/repositories/dashboard.repository';
 import { SortDirection } from 'src/app/shared/components/ui/table/table-header-cell/table-header-cell.component';
-import { DashboardUser } from '../../services/dashboard.service';
 
 @Component({
   selector: 'user-list',

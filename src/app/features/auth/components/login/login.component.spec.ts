@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
   const authService = jasmine.createSpyObj<AuthService>('AuthService', ['login']);
 
   beforeEach(async () => {
-    authService.login.and.returnValue(of({ token: 'token' }));
+    authService.login.and.returnValue(of({ mode: 'online' }));
 
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],

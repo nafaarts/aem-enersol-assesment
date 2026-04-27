@@ -29,8 +29,10 @@ const routes: Routes = [
   { path: '**', component: NotFoundComponent },
 ];
 
+const isElectron = navigator.userAgent.toLowerCase().includes('electron');
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: isElectron })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
