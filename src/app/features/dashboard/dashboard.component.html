@@ -6,7 +6,7 @@
     {{ statusMessage }}
 </div>
 
-<section style="margin-bottom: 24px;">
+<section *ngIf="!hasError" style="margin-bottom: 24px;">
     <h5>Overview</h5>
 
     <ng-container *ngIf="isLoading">
@@ -32,7 +32,7 @@
     </ng-container>
 </section>
 
-<section>
+<section *ngIf="!hasError">
     <h5>User List</h5>
 
     <div *ngIf="isLoading" class="skeleton" style="height: 300px; width: 100%;"></div>

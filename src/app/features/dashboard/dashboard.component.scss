@@ -1,5 +1,11 @@
+:host {
+    .callout {
+        font-size: 0.75rem;
+    }
+}
+
 @media (min-width: 1024px) {
-    .chart-grid > .cell {
+    .chart-grid>.cell {
         display: flex;
         flex-direction: column;
     }

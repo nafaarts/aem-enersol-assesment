@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.isOnline = isOnline
 
         if (!wasOnline && isOnline) {
+          console.log('Back Online.')
           this.load()
         }
       })
@@ -82,6 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       error: (error: any) => {
         this.hasError = true
         this.errorMessage = error?.message ?? 'Failed to load dashboard data.'
+
         this.isLoading = false
       },
     })
